@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const Workout = require("../models/workouts.js");
+const Workout = require("../models/workout");
+
 
 router.post("/api/workouts", ({ body }, res) => {
   Workout.create({})
@@ -26,7 +27,7 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-    Workout.aggregrate([
+    Workout.aggregate([
         {
             $addFields: {
                 totalDuration: {
@@ -46,7 +47,7 @@ router.get("/api/workouts/range", (req, res) => {
 });
 
 router.get("/api/workouts", (req, res) => {
-    Workout.aggregrate([
+    Workout.aggregate([
 {
     $addFields: {
         totalDuration: {
@@ -64,18 +65,20 @@ router.get("/api/workouts", (req, res) => {
   });
 
    //delete workout
-   router.delete("/api/workouts/:id", (req,res)=>{
-    Workout.deleteOne(
-      params.id,
-      {name:{req}}
-  )
-  .then((workoutDB)=>{
-      res.json(workoutDB)
-  })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+//    router.delete("/api/workouts/:id", (req,res)=>{
+//     Workout.deleteOne(
+//       params.id,
+//       {name:{req}}
+//   )
+//   .then((workoutDB)=>{
+//       res.json(workoutDB)
+//   })
+//     .catch(err => {
+//       res.status(400).json(err);
+//     });
 
-});
+// });
+
+
 
 module.exports = router;
