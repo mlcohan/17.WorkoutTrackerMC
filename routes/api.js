@@ -1,9 +1,3 @@
-// delete
-
-
-
-
-
 const router = require("express").Router();
 const Workout = require("../models/workouts.js");
 
@@ -69,5 +63,19 @@ router.get("/api/workouts", (req, res) => {
       });
   });
 
+   //delete workout
+   router.delete("/api/workouts/:id", (req,res)=>{
+    Workout.deleteOne(
+      params.id,
+      {name:{req}}
+  )
+  .then((workoutDB)=>{
+      res.json(workoutDB)
+  })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+
+});
 
 module.exports = router;
